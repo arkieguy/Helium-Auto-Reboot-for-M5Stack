@@ -2,8 +2,9 @@ from m5stack import *
 from m5ui import *
 from uiflow import *
 import urequests
-import machine
 import time
+import wifiCfg
+import machine
 import json
 
 
@@ -13,7 +14,7 @@ mode = None
 HotspotName = None
 switchStat = None
 
-
+wifiCfg.autoConnect(lcdShow=True)
 
 
 # Describe this function...
@@ -71,7 +72,14 @@ def trebootDaily():
 
 
 HotspotName = 'helium-hotspot-name-here'
+rgb.setColorAll(0xffff66)
+wait(4)
+while not (wifiCfg.wlan_sta.isconnected()):
+  rgb.setColorAll(0x000000)
+  wait(1)
+  rgb.setColorAll(0xffff66)
+  wait(4)
 pin0 = machine.Pin(23, mode=machine.Pin.OUT, pull=machine.Pin.PULL_DOWN)
 setSwitch('On')
 timerSch.run('checkOnlineHourly', (60 * 60 * 1000), 0x00)
-timerSch.setTimer('rebootDaily', (24 * 60 * 60 + 1000), 0x00)
+timerSch.setTimer('rebootDaily', (24 * 60 * 60 * 1000), 0x00)
