@@ -17,14 +17,14 @@ switchStat = None
 wifiCfg.autoConnect(lcdShow=True)
 
 
-# Describe this function...
+# This function is called to cycle the power on the relay.
 def reboot():
   global mode, HotspotName, switchStat
   setSwitch('Off')
   wait(300)
   setSwitch('On')
 
-# Describe this function...
+# This function controls the relay.
 def setSwitch(mode):
   global HotspotName, switchStat
   if mode=='On':
@@ -41,7 +41,8 @@ def setSwitch(mode):
     else:
       setSwitch('Off')
 
-# Describe this function...
+# This function connects to the Helium API to check
+# to see if the hotspot is showing as being online.
 def checkHost():
   global mode, HotspotName, switchStat
   try:
